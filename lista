@@ -1,0 +1,94 @@
+class Node: 
+  valor = 0
+  proximo = None
+
+  def __init__(self, valor=0, proximo=None):
+    self.valor = valor
+    self.proximo = proximo
+    
+from node import Node
+
+
+class Lista:
+  inicio = None
+
+  def __init__(self):
+    self.inicio = None
+
+  # adicionar no final da lista
+  def adicionar(self, valor, inicio = False):
+    if(inicio):
+      self.adicionar_no_inicio(valor)
+    else:
+      self.adicionar_no_fim(valor)
+      
+
+  def adicionar_no_inicio(self, valor):
+    valor = Node(valor)
+    valor.proximo = self.inicio
+    self.inicio = valor
+    
+
+  def adicionar_no_fim(self, valor):
+    if(self.inicio == None):
+      self.inicio = Node(valor, None)
+    else:
+      aux = self.inicio
+      while (aux.proximo != None):
+        aux = aux.proximo
+        
+      aux.proximo = Node(valor, None)
+
+  def remover_um(self, valor):
+    aux = self.inicio    
+
+    if aux == None:        
+      return
+
+    if aux != None:
+      if aux.valor == valor:
+        self.inicio = self.proximo
+        self = None
+                    
+
+        while aux != None:         
+          if aux.valor == valor:           
+            break
+          prev = aux
+          aux = aux.proximo
+
+        prev.proximo = aux.proximo
+        aux = None
+        
+  def remover(self, valor):
+     
+    aux = self.inicio
+    while (aux != None):
+      self.remover_um(valor)
+      aux = aux.proximo
+        
+    
+ 
+  
+  def show(self):
+     aux = self.inicio
+     print("[", end = '')
+     while (aux.proximo != None):
+       print(f"{aux.valor}", end = ', ')
+       aux = aux.proximo
+     print(f"{aux.valor}]")
+     
+from lista import Lista
+
+lista = Lista()
+
+lista.adicionar(1)
+lista.adicionar(2)
+lista.adicionar(3, inicio=True)
+lista.adicionar(4)
+lista.adicionar(5)
+lista.adicionar(6, inicio=True)
+
+lista.show()
+
+lista.remover_todos(3) 
